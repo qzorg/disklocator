@@ -1,6 +1,15 @@
 #!/bin/ash
 
+show_help() {
+    cat << EOF
+Usage: [-ho] [-d DISK] [-t TIME]
 
+    -h display this help
+    -o switch on/off LED
+    -d disk name, without /dev/. EX. sda
+    -t time, in seconds, to keep the light illuminated
+EOF
+}
 switch=1
 time=30
 
@@ -12,7 +21,7 @@ while getopts ":d:t:h:o" opt; do
         t)
             time=$OPTARG ; switch=0
             ;;
-	o)
+    	o)
             switch=1
             ;;
         \?) show_help
@@ -46,4 +55,5 @@ then
      fi
     else
 	echo "needs disk identifier ex. sda"
+    exit 1
 fi
